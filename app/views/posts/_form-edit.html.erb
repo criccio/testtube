@@ -1,0 +1,39 @@
+<% 	3.times { @post.tags.build }  %>
+
+<%= form_for(@post, :class => "form-horizontal") do |f| %>
+  <%= f.hidden_field :name, :value => current_user.fullname %>
+  <div class="control-group">
+     <%= f.label :title, :class => "control-label"%>
+   	<%= f.text_field :title, :class => "input-xlarge" %>
+  </div>
+  <div class="control-group">
+    <%= f.label :content, :class => "control-label"%>
+    <%= f.text_area :content, :rows => 5, :class => "input-xlarge" %>
+  </div>
+  <%= render :partial => 'tags/form',
+             :locals => {:form => f} %>                        
+  <div class="form-actions">
+     <%= f.submit "Post", :class => "btn btn-primary" %>
+     <%= link_to "Cancel", :back, :class => "btn" %>
+  </div>
+  
+  
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+		
+	</div>
+		
+	</div>
+</div>	
+
+<% end %>

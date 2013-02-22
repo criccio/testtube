@@ -1,0 +1,11 @@
+<p>
+  <%= comment.commenter %> says "<%= comment.body %>"
+<% 
+if user_signed_in?
+  if current_user.fullname == comment.commenter %>
+  <%= link_to 'delete', [comment.post, comment],
+               :confirm => 'Are you sure?',
+               :method => :delete %>
+<% end 
+end %>
+</p>

@@ -1,0 +1,19 @@
+<ul class="nav nav-list">
+	<li class="nav-header"><%= @post.title %></li>
+   	<li>By: <%= @post.name %></li>
+   	<li>Runtime: <%= duration_to_s(@post) %></li>
+   	<li><%= link_to 'Download (Right Click, Save As)', @post.video.url %></li>
+<% 
+if user_signed_in?
+  if current_user.fullname == @post.name %>
+  <li><%= link_to 'Edit your post', edit_post_path(@post) %></li>
+  <li><%= link_to 'Delete your post', post_path(@post), :confirm => 'Are you sure?', :method => :delete%></li> 
+<% end 
+end %>
+</ul>
+<ul class="nav nav-list">
+	<li class="nav-header">Tags</li>
+  		<% for tag in @post.tags do %>
+  		<li><span class="label label-inverse"><%= tag.name %></span></li>
+  		<% end %>
+</ul>

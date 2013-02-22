@@ -1,0 +1,12 @@
+<h5>Comments</h5>
+<% if @post.comments.any? %>
+	<%= render @post.comments %>
+<% else %>
+	<p>None</p>
+<% end %>
+<% if user_signed_in? %>
+	<h5>Add a comment:</h5>
+	<%= render "comments/form" %>
+<% else %>
+	<%= link_to "Sign in to comment", new_user_session_path %>
+<% end %>

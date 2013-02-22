@@ -1,0 +1,7 @@
+<div class="span4">
+	<%= image_tag post.video.url(:medium), :class => "floatleft" %>
+	<h5><%=post.title%></h5>
+    <p><%=condense_content(post)%></p>
+    <p><%=duration_to_s(post)%></p>
+    <p><%= link_to "View &raquo;".html_safe, post, :class => "btn" %></p>
+</div><!--/span-->

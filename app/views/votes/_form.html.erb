@@ -1,0 +1,17 @@
+<% if user_signed_in? %>
+    <% if i_voted(@post, current_user) %>
+        <p>I Like This</p>
+        <%= form_for([@post, @myvote], :method => :delete, :class => "form-horizontal") do |f| %>
+            <%= f.submit "Dislike", :class => "btn btn-primary" %>
+        <% end %>
+    <% else %>
+        <%= form_for([@post, @post.votes.build], :class => "form-horizontal") do |f| %>
+            <%= f.hidden_field :login, :value => current_user.login %>
+            <%= f.submit "Like", :class => "btn btn-primary" %>
+        <% end %>
+    <% end %>
+<% else %>
+    <%= link_to "Sign in to Like this video", new_user_session_path %>
+<% end %>
+
+

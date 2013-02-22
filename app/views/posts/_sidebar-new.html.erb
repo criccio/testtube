@@ -1,0 +1,11 @@
+<div class="alert alert-info">
+    Use this form to post a new video to the site. Please choose a descriptive title, and briefly describe the video. Each tag entry should be a single tag.
+</div>
+<div class="well sidebar-nav">
+    <ul class="nav nav-list">
+        <li class="nav-header">Supported Video Content Types</li>
+        <% @post.supported_formats.each do |format| %>
+            <li><%= format %></li>
+        <% end %>
+    </ul>
+</div>

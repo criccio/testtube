@@ -1,0 +1,6 @@
+<h3>Tag Cloud:</h3>
+<div id="tag_cloud">
+    <% get_tag_cloud(@all).each do |b| %>
+        <span style="font-size:<%= b[0] %>px;"><%= link_to b[1], posts_search_path(:search => {:title_or_content_or_tags_name_contains => b[1]}), :method => :post %></span>
+    <% end %>
+</div>

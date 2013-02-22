@@ -1,0 +1,5 @@
+<% if not params[:search].blank? %>
+<p>Results for search term: <%= params[:search][:title_or_content_or_tags_name_contains] %></p>
+<% end %>
+<%= render_grid(:post, @searchresults, 3, :partial => 'grid_cell') %>
+

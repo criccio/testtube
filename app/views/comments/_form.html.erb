@@ -1,0 +1,8 @@
+<%= form_for([@post, @post.comments.build], :class => "form-horizontal") do |f| %>
+  <%= f.hidden_field :commenter, :value => current_user.fullname %> 
+  <div class="control-group">
+	<%= f.text_area :body, :rows => 5, :class => "input-large" %>
+  </div>
+  <%= f.submit "Comment", :class => "btn btn-primary" %>
+
+<% end %>
