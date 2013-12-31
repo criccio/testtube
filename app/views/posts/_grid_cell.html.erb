@@ -1,7 +1,13 @@
 <div class="span4">
-	<%= image_tag post.video.url(:medium), :class => "floatleft" %>
-	<h5><%=post.title%></h5>
-    <p><%=condense_content(post)%></p>
-    <p><%=duration_to_s(post)%></p>
-    <p><%= link_to "View &raquo;".html_safe, post, :class => "btn" %></p>
+    <div class="media">
+        <%= image_tag post.video.url(:medium), :class => "pull-left img-polaroid" %>
+        <div class="media-body">
+            <h5 class="media-heading"><%=post.title%></h5>
+            <p>
+                <%=condense_content(post)%><br/>
+                <%=duration_to_s(post)%><br/>
+                <%= link_to "View &raquo;".html_safe, post %>
+            </p>
+        </div>
+    </div>
 </div><!--/span-->
