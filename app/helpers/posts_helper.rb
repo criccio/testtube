@@ -10,11 +10,12 @@ module PostsHelper
         end
       end
     end
+    alltags.delete_if {|k,v| v == 1}
     alltags
   end
 
   def get_tag_cloud(posts)
-    tags = get_tags(@all)
+    tags = get_tags(Post.all)
 
     # max font size is 32, min is 10
     largest_font = Rails.application.config.tag_cloud_largest_font_size
@@ -44,7 +45,7 @@ module PostsHelper
   end
 
   def condense_content(post)
-    truncate(post.content, :length => 35)
+    post.content.size == 0 ? '(no description)' : truncate(post.content, :length => 35)
   end
 
   def render_grid(object_sym, object_list, number_of_columns=3, partial_opts={})

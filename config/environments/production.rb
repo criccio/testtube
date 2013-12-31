@@ -71,5 +71,6 @@ Testtube::Application.configure do
 
   #Make sure this points to your imagemagick install
   Paperclip.options[:command_path] = "/usr/bin"
-  
+
+  GA.tracker = "INSERT VALUE HERE"
 end

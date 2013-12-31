@@ -2,13 +2,15 @@ class PostsController < ApplicationController
   #users need to be logged in to create a new post
   #we don't want this for index, show or search, just the other actions
   before_filter :authenticate_user!, :except => [:index, :show, :search]
- 
+
   # GET /posts
   # GET /posts.json
   def index
-	@all = Post.all
-	@searchresults = get_search_results()
-	
+    #@all = Post.all
+    @all = Post.order('created_at DESC').page params[:page]
+    @searchresults = @all
+    @search = Post.search(params[:search])
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @searchresults }
@@ -18,7 +20,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-	@search = Post.search(params[:search])
+    @search = Post.search(params[:search])
     @post = Post.find(params[:id])
 
     respond_to do |format|
@@ -29,21 +31,22 @@ class PostsController < ApplicationController
 
   # POST /posts/search
   def search
-	@all = Post.all
-	@searchresults = get_search_results()
-	
+    @all = Post.all
+    @searchresults = get_search_results()
+
     respond_to do |format|
       format.html # search.html.erb
       format.json { render :json => @searchresults }
     end
   end
-  
+
   # GET /posts/new
   # GET /posts/new.json
   def new
-	@search = Post.search(params[:search])
+    @search = Post.search(params[:search])
     @post = Post.new
-	
+    3.times { tag = @post.tags.build }
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @post }
@@ -52,7 +55,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-	@search = Post.search(params[:search])
+    @search = Post.search(params[:search])
     @post = Post.find(params[:id])
   end
 
@@ -60,17 +63,17 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(params[:post])
- 	
+
     respond_to do |format|
       if @post.save
         format.html  { redirect_to(@post,
-                      :notice => 'Post was successfully created.') }
+                                   :notice => 'Post was successfully created.') }
         format.json  { render :json => @post,
-                      :status => :created, :location => @post }
+                              :status => :created, :location => @post }
       else
         format.html  { render :action => "new" }
         format.json  { render :json => @post.errors,
-                      :status => :unprocessable_entity }
+                              :status => :unprocessable_entity }
       end
     end
   end
@@ -102,13 +105,13 @@ class PostsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   def get_search_results
-  	@search = Post.search(params[:search])
-  	if params[:search].nil? or params[:search]["title_or_content_or_tags_name_contains"].blank?
-  		@search.all
-  	else
-		@search.select('DISTINCT post_id, posts.*')
-  	end
+    @search = Post.search(params[:search])
+    if params[:search].nil? or params[:search]["title_or_content_or_tags_name_contains"].blank?
+      @search.all
+    else
+      @search.select('DISTINCT post_id, posts.*')
+    end
   end
 end

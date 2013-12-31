@@ -1,10 +1,10 @@
 <ul class="nav nav-list">
-	<li class="nav-header">Latest Videos</li>
-	<% latest_videos(@all).each do |post| %>
-   	<li><%= link_to post.title, post %></li>
-	<% end %>
-	<li class="nav-header">Most Popular</li>
-	<% most_popular(@all).each do |post| %>
-   	<li><%= link_to post.title, post %></li>
-	<% end %>
+    <li class="nav-header">Latest Videos</li>
+    <% latest_videos(Post.all).each do |post| %>
+        <li><%= link_to post.title, post %></li>
+    <% end %>
+    <li class="nav-header">Most Popular</li>
+    <% most_popular(Post.all).each do |post| %>
+        <li><%= link_to post.title, post %></li>
+    <% end %>
 </ul>

@@ -45,3 +45,5 @@ gem 'devise_ldap_authenticatable'
 gem 'execjs'
 gem 'meta_search'
 gem "mediaelement_rails"
+gem 'google-analytics-rails'
+gem 'kaminari'
