@@ -20,7 +20,7 @@ group :assets do
   gem 'less-rails'
 
   gem 'uglifier', '>= 1.0.3'
-  gem 'less-rails-bootstrap'
+  gem 'less-rails-bootstrap', '= 2.3.2'
 end
 
 gem 'jquery-rails'
