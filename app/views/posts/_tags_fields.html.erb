@@ -1,0 +1,4 @@
+<div class="control-group">
+    <%= f.label :name, 'Tag:' , :class => "control-label"%>
+    <%= f.collection_select :name, Tag.select('DISTINCT name').order('name ASC'), :name, :name, {include_blank: true}  %>
+</div>

@@ -1,39 +1,72 @@
-<% 	3.times { @post.tags.build }  %>
-
 <%= form_for(@post, :class => "form-horizontal") do |f| %>
-  <%= f.hidden_field :name, :value => current_user.fullname %>
-  <div class="control-group">
-     <%= f.label :title, :class => "control-label"%>
-   	<%= f.text_field :title, :class => "input-xlarge" %>
-  </div>
-  <div class="control-group">
-    <%= f.label :content, :class => "control-label"%>
-    <%= f.text_area :content, :rows => 5, :class => "input-xlarge" %>
-  </div>
-  <%= render :partial => 'tags/form',
-             :locals => {:form => f} %>                        
-  <div class="form-actions">
-     <%= f.submit "Post", :class => "btn btn-primary" %>
-     <%= link_to "Cancel", :back, :class => "btn" %>
-  </div>
-  
-  
-  <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-      <ul>
-      <% @post.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+    <%= f.hidden_field :name, :value => current_user.fullname %>
+    <div class="alert alert-info">
+        Please select the video to replace your current video (shown here). Note that not all formats are supported (see list on the left). If your video is large (close to, or more than 1 GB), you will need to re-encode it to reduce it's size, as it will timeout during processing.)
+        Check out <a href="http://handbrake.fr" class="alert-link">Handbrake</a> as an open source video processing tool.
     </div>
-  <% end %>
+    <video controls="controls" width="800" height="600">
+        <source src="<%= @post.video.url %>" type="<%= @post.video.content_type %>">
+    </video>
+    <div class="control-group">
+        <%= f.label :name, 'Replacement Video:' , :class => "control-label"%>
+        <%= f.file_field :video, :class => "input-file" %>
+    </div>
 
-		
-	</div>
-		
-	</div>
-</div>	
+    <div class="alert alert-info">
+        Provide a simple descriptive title
+    </div>
+    <div class="control-group">
+        <%= f.label :title, :class => "control-label"%>
+        <%= f.text_field :title, :class => "input-xlarge" %>
+    </div>
+    <div class="alert alert-info">
+        Provide an extended description of the content of the video
+    </div>
+    <div class="control-group">
+        <%= f.label :content, :class => "control-label"%>
+        <%= f.text_area :content, :rows => 5, :class => "input-xlarge" %>
+    </div>
+    <div class="alert alert-info">
+        You can optionally add tags to help people find your video. Your existing tags are here if you wish to change them.
+    </div>
+    <%
+       dropdowns_needed = @post.tags.length + 1
+       index = 0
+       2.times { tag = @post.tags.build }
+    %>
+    <%= f.fields_for :tags do |builder| %>
+        <% if index < dropdowns_needed %>
+            <%= render "tags_fields", :f => builder %>
+        <% else %>
+            <%= render "tags_addnew", :f => builder %>
+        <% end %>
+        <% index += 1  %>
+    <% end %>
+
+
+
+    <div class="form-actions">
+        <%= f.submit "Post", :class => "btn btn-primary" %>
+        <%= link_to "Cancel", :back, :class => "btn" %>
+    </div>
+
+
+    <% if @post.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+            <ul>
+                <% @post.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+
+    </div>
+
+    </div>
+    </div>
 
 <% end %>
