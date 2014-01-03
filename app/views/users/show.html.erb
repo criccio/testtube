@@ -1,0 +1,10 @@
+
+<div class="row-fluid">
+    <div class="span3">
+        Settings for: <%= @user.fullname %>
+    </div><!--/span-->
+    <div class="span9">
+        Send email when new video is uploaded: <%= @user.send_email %>  <br/>
+        <%= link_to 'Edit these settings', edit_user_path(@user) %>
+    </div><!--/span-->
+</div><!--/row-->

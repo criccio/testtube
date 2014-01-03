@@ -5,7 +5,9 @@ Testtube::Application.routes.draw do
     resources :comments
   	resources :votes
   end
-  
+
+  resources :users, :except => [:new, :destroy, :create, :index]
+
   post 'posts/search'
 
   get "home/index"

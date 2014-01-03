@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   devise :ldap_authenticatable, :rememberable, :trackable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :fullname
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :fullname, :send_email
   
   def get_ldap_fullname
      self.fullname = Devise::LdapAdapter.get_ldap_param(self.login, "displayName")

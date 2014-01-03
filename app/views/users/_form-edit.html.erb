@@ -1,0 +1,27 @@
+<%= form_for(@user, :class => "form-horizontal") do |f| %>
+    <div class="alert alert-info">
+        Test Tube currently sends an email every time a new video is added to the site. Un-check this setting to stop getting these emails.
+    </div>
+    <div class="control-group">
+        <%= f.label :send_email, :class => "control-label"%>
+        <%= f.check_box :send_email, :class => "input-checkbox" %>
+    </div>
+
+    <div class="form-actions">
+        <%= f.submit "Update", :class => "btn btn-primary" %>
+        <%= link_to "Cancel", :back, :class => "btn" %>
+    </div>
+
+
+    <% if @user.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+            <ul>
+                <% @user.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+<% end %>
