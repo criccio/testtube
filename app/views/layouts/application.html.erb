@@ -50,7 +50,7 @@
             <% end %>
             <p class="navbar-text pull-right">
 <% if user_signed_in? %>
-   Logged in as <%= current_user.fullname %> - <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %> 
+    Logged in as <%= link_to "#{current_user.fullname}", user_path(current_user) %> - <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>
 <% else %>
    <%= link_to "Sign in", new_user_session_path %>
 <% end %>

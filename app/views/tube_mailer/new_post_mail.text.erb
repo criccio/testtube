@@ -1,0 +1,13 @@
+A new video has been posted to Test Tube:
+===============================================
+
+<%= @post.title%>
+
+<%= @post.content %>.
+<%=duration_to_s(@post)%><br/>
+
+<%= link_to 'To view this video, just follow this link', :controller => 'posts', :action => 'show',
+            :only_path => false, :id => @post.id %>
+
+You are receiving this email because you logged into Test Tube. If you'd like to stop getting these mails, <%= link_to 'click here', :controller => 'users', :action => 'show',
+                                                                                                                      :only_path => false, :id => @user.id %>

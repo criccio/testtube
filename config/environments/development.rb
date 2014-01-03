@@ -40,6 +40,13 @@ Testtube::Application.configure do
   config.tag_cloud_largest_font_size = 32
   config.tag_cloud_smallest_font_size = 10
 
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.asset_host = 'http://localhost:3000'
+  config.action_controller.asset_host = config.action_mailer.asset_host
+
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_deliveries = false
+
   #Make sure this points to your imagemagick install
   Paperclip.options[:command_path] = "/opt/ImageMagick/bin"
   

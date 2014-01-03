@@ -66,6 +66,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
+        send_new_post_email(@post)
         format.html  { redirect_to(@post,
                                    :notice => 'Post was successfully created.') }
         format.json  { render :json => @post,
@@ -106,6 +107,7 @@ class PostsController < ApplicationController
     end
   end
 
+  private
   def get_search_results
     @search = Post.search(params[:search])
     if params[:search].nil? or params[:search]["title_or_content_or_tags_name_contains"].blank?
@@ -114,4 +116,13 @@ class PostsController < ApplicationController
       @search.select('DISTINCT post_id, posts.*')
     end
   end
+
+  def send_new_post_email(post)
+    if Rails.env.production?
+      User.all.each do |user|
+        TubeMailer.new_post_mail(post, user).deliver if user.send_email?
+      end
+    end
+  end
+
 end

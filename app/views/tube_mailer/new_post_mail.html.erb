@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<h3>A new video has been posted to Test Tube:</h3>
+<div class="span4">
+    <div class="media">
+        <%= image_tag @post.video.url(:medium), :class => "pull-left img-polaroid" %>
+        <div class="media-body">
+            <h5 class="media-heading"><%=@post.title%></h5>
+            <p>
+                <%= @post.content %><br/>
+                <%=duration_to_s(@post)%><br/>
+                <%= link_to 'View &raquo;'.html_safe, :controller => 'posts', :action => 'show',
+                            :only_path => false, :id => @post.id %>
+            </p>
+        </div>
+    </div>
+</div><!--/span-->
+<p>You are receiving this email because you logged into Test Tube. If you'd like to stop getting these mails, <%= link_to 'click here', :controller => 'users', :action => 'show',
+                                                                                                                         :only_path => false, :id => @user.id %></p>
+</body>
+</html>
+
