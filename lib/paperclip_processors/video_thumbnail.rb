@@ -5,7 +5,7 @@ module Paperclip
 
     def initialize(file, options = {}, attachment = nil)
       super
-      @time_offset = options[:time_offset] || '-30'
+      @time_offset = options[:time_offset] || '-3'
       unless options[:geometry].nil? || (@geometry = Geometry.parse(options[:geometry])).nil?
         @geometry.width = (@geometry.width / 2.0).floor * 2.0
         @geometry.height = (@geometry.height / 2.0).floor * 2.0

@@ -1,4 +1,22 @@
 module PostsHelper
+  def adjust_content_type(post)
+    #adjust the content type for use in the media element player, so that it does the right thing
+    #start with what ffmpeg detected it to be
+    content_type = post.video.content_type
+
+    #Change for WMV files the real content type for WMV is video/x-ms-wmv, but media element player needs it to be called video/wmv
+    if post.video.content_type =~ /wmv/
+      content_type = 'video/wmv'
+    end
+
+    #this is a cheat - most quicktime at this point is h264, so tell media element that it's video/mp4 instead of video/quicktime
+    if post.video.content_type =~ /quicktime/
+      content_type = 'video/mp4'
+    end
+
+    content_type
+  end
+
   def get_tags(posts)
     @largestcount = -1
     alltags = Hash.new { |hash, key| hash[key] = 0 }

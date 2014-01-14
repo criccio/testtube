@@ -2,6 +2,19 @@
 		<p><%= @post.title %></p>
 		<video controls="controls" width="800" height="600">
 			<source src="<%= @post.video.url %>" type="<%= @post.video.content_type %>">
+            <source src="<%= @post.video.url %>" type="<%= adjust_content_type(@post) %>">
+            <object width="800" height="600" type="application/x-shockwave-flash" data="flashmediaelement.swf">
+                <param name="movie" value="flashmediaelement.swf" />
+                <param name="flashvars" value="controls=true&file=<%= @post.video.url %>" />
+                <!-- Image as a last resort -->
+                <img src="<%= @post.video.url(:medium) %>" width="320" height="240" title="No video playback capabilities" />
+            </object>
+            <object width="800" height="600" type="application/x-silverlight-2" data="silverlightmediaelement.xap">
+                <param name="movie" value="silverlightmediaelement.xap" />
+                <param name="flashvars" value="controls=true&file=<%= @post.video.url %>" />
+                <!-- Image as a last resort -->
+                <img src="<%= @post.video.url(:medium) %>" width="320" height="240" title="No video playback capabilities" />
+            </object>
 		</video>
 		<p><%= @post.content %></p>
 </div>
