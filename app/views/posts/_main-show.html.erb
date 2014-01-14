@@ -1,7 +1,6 @@
 <div class="span12 hero-unit">
 		<p><%= @post.title %></p>
 		<video controls="controls" width="800" height="600">
-			<source src="<%= @post.video.url %>" type="<%= @post.video.content_type %>">
             <source src="<%= @post.video.url %>" type="<%= adjust_content_type(@post) %>">
             <object width="800" height="600" type="application/x-shockwave-flash" data="flashmediaelement.swf">
                 <param name="movie" value="flashmediaelement.swf" />
